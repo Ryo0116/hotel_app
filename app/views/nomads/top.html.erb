@@ -1,0 +1,44 @@
+    <div class="top">
+    <div class="top-main">
+        <div class="container">
+        <div class="row col-lg-6">
+                <div class="form-fream">
+                    <div class="form-area">
+                        <p class="form-area-title mb-4">Nomad Shareで日本を満喫しよう</p>
+                        <form action="https://presite-potepancamp-rails-02.herokuapp.com/rooms/search" accept-charset="UTF-8" method="get">
+                            <label for="___">エリア</label>
+                            <input type="text" name="area" id="area" value="" class="form-control mb-4" placeholder="東京" />
+                            <input type="submit" name="commit" value="探す" class="form-control btn-primary mb-4" data-disable-with="探す" />
+</form>                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="panel-area m-5">
+            <h1 class="section-title">おすすめのエリア</h1>
+            <div class="row">
+                <div class="panel-item col-lg-3 col-6">
+                    <span>東京</span>
+                    <a href="https://presite-potepancamp-rails-02.herokuapp.com/rooms/search?area=%E6%9D%B1%E4%BA%AC"><img class="panel-image" src="/assets/tokyo.jpeg" /></a>
+                    <div class="shadow"></div>
+                </div>
+                <div class="panel-item col-lg-3 col-6">
+                    <span>埼玉</span>
+                    <a href="https://presite-potepancamp-rails-02.herokuapp.com/rooms/search?area=%E5%A4%A7%E9%98%AA"><img class="panel-image" src="/assets/saitama.jpeg" /></a>
+                    <div class="shadow"></div>
+                </div>
+                <div class="panel-item col-lg-3 col-6">
+                    <span>沖縄</span>
+                    <a href="https://presite-potepancamp-rails-02.herokuapp.com/rooms/search?area=%E4%BA%AC%E9%83%BD"><img class="panel-image shadow" src="/assets/okinawa.jpeg" /></a>
+                    <div class="shadow"></div>
+                </div>
+                <div class="panel-item col-lg-3 col-6">
+                    <span>新潟</span>
+                    <a href="https://presite-potepancamp-rails-02.herokuapp.com/rooms/search?area=%E6%9C%AD%E5%B9%8C"><img class="panel-image" src="/assets/niigata.jpeg" /></a>
+                    <div class="shadow"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
