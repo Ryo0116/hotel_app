@@ -12,12 +12,12 @@ class UsersController < ApplicationController
     else
       flash[:alert] = "更新できません"
     end
-    redirect_to dashboard_path
+    redirect_to nomads_top_path
   end
 
   private
   
   def current_user_params
-    params.require(:user).permit(:about, :status, :image)
+    params.require(:user).permit(:introduce, :image_name, :name)
   end
 end

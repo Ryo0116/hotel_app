@@ -1,6 +1,7 @@
 class RoomsController < ApplicationController
   protect_from_forgery
   before_action :authenticate_user!, except: [:show]
+  #belongs_to :user
 
   def index
     @rooms = current_user.rooms.all
@@ -12,19 +13,16 @@ class RoomsController < ApplicationController
 
   def create
     @room = current_user.rooms.build(room_params)
-    binding.pry
     if @room.save
-      binding.pry
       redirect_to :rooms_posts, notice: "保存しました。"
     else
-      binding.pry
       flash[:alert] = "問題が発生しました。"
       render :new
     end
   end
 
   def show
-    @room = Room.find(params[:room_id])
+    @room = Room.find(params[:id])
   end
 
   def update
@@ -38,11 +36,17 @@ class RoomsController < ApplicationController
     redirect_back(fallback_location: request.referer)
   end
 
-  
-    def room_params
-    params.permit(:id, :name, :introduce, :single_rate, :address, :image_name, :user_id)
-    end
+  def destroy
+    @room = Room.find(params[:id])
+    @room.destroy
+    flash[:notice] = "部屋を削除しました"
+    redirect_to :rooms_posts
   end
+
+  private
+    def room_params
+      params.require(:room).permit(:id, :name, :introduce, :single_rate, :address, :image_name, :user_id)
+    end
 
   # 予約 開始日のAJAX
   def preload
@@ -75,4 +79,4 @@ class RoomsController < ApplicationController
       check.size > 0? true : false
     end
 
-  
+  end

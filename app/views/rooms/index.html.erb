@@ -4,6 +4,7 @@
   <table>
     <thead>
       <tr align="center">
+        <th>部屋番号</th>
         <th>ルーム画像</th>
         <th>ルーム名</th>
         <th>ルーム紹介</th>
@@ -15,13 +16,13 @@
       <% @rooms.each do |room| %>
         <tr>
           <td><%= room.id %></td>
-          <td><%= room.image_name %></td>
+          <td><%= image_tag (room.image_name.url) %></td>
           <td><%= room.name %></td>
           <td><%= room.introduce %></td>
           <td><%= room.single_rate %></td>
           <td><%= room.created_at.to_s(:datetime_jp) %></td>
-          <td><%= room.id %></td>
           <td><%= link_to "詳細・予約", room_path(room.id) %></td>
+          <td><%= link_to "削除", room, method: :delete, data: { confirm: "本当に削除しますか？" } %></td>
         </tr>
 
       <% end %>

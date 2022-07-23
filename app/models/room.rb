@@ -1,7 +1,7 @@
 class Room < ApplicationRecord
 
-  mount_uploader :image, ImageUploader
-  
+  mount_uploader :image_name, ImageUploader
+
   belongs_to :user
 
   has_many :reservations

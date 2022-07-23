@@ -7,7 +7,6 @@
       <tr align="center">
         <th>ルーム画像</th>
         <th>ルーム名</th>
-        <th>ルーム紹介</th>
         <th>合計料金</th>
         <th>開始日</th>
         <th>終了日</th>
@@ -15,29 +14,15 @@
     </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>
-          ルーム画像
-        </td>
-        <td>
-          ルーム名
-        </td>
-        <td>
-          ルーム紹介
-        </td>
-        <td>
-          合計料金
-        </td>
-        <td>
-          開始日
-        </td>
-        <td>
-          終了日
-        </td>
-        <td>
-          予約確定日
-        </td>
-      </tr>
+      <% @reservations.each do |reservation| %>
+        <tr>
+          <td><%= image_tag (reservation.room.image_name.url) %></td>
+          <td><%= reservation.room.id %></td>
+          <td>¥</td>
+          <td><%= reservation.start_date %></td>
+          <td><%= reservation.end_date %></td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
 </div>

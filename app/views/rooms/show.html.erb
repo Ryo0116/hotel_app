@@ -1,14 +1,22 @@
-<h1>show</h1>
-<tbody>
-      <% @rooms.each do |room| %>
+<h2>部屋詳細・予約ページ</h2>
+  <table>
+    <thead>
+      <tr align="center">
+        <th>ルーム画像</th>
+        <th>ルーム名</th>
+        <th>ルーム紹介</th>
+        <th>料金</th>
+        <th>住所</th>
+      </tr>
+    </thead>
+    <tbody>
         <tr>
-          <td><%= room.id %></td>
-          <td><%= room.image_name %></td>
-          <td><%= room.name %></td>
-          <td><%= room.introduce %></td>
-          <td><%= room.single_rate %></td>
-          <td><%= room.created_at.to_s(:datetime_jp) %></td>
-          <td><%= room.id %></td>
+          <td><%= image_tag @room.image_name.url %></td>
+          <td><%= @room.name %></td>
+          <td><%= @room.introduce %></td>
+          <td>¥<%= @room.single_rate %>/日</td>
+          <td><%= @room.address %></td>
         </tr>
-      <% end %>
-</tbody>
+      <%= render 'reservations/form' %>
+    </tbody>
+  </table>

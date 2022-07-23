@@ -18,21 +18,27 @@ Rails.application.routes.draw do
   get 'rooms/posts' => 'rooms#index'
   get 'users/registrations/edit'
   get 'users/profile' => 'users#profile'
-  get '/your_reservations' => 'reservations#your_reservations'
+  get '/reservations' => 'reservations#index'
+  post 'reservations/confirm' # 確認画面
 
-  resource :rooms, only: :show
+
+  resource :rooms
 
 
   resources :rooms, except: [:edit] do
     member do
       get 'rooms/new'
       get 'rooms/posts' => 'rooms#index'
-      get 'show'
       get 'description'
-      get 'preload'
-      get 'preview'
+      post 'reservations/confirm' # 確認画面
     end
-    resources :reservations, only: [:create]
+
+  resources :reservations
+
+  get '/reservations' => 'reservations#index'
+  post 'reservations/confirm' # 確認画面
+  post 'rreservations/back' # 確認画面から「入力画面に戻る」をクリックしたとき
+  post 'reservations/complete' # 完了画面
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
