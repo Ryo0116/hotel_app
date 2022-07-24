@@ -1,7 +1,6 @@
 class RoomsController < ApplicationController
   protect_from_forgery
   before_action :authenticate_user!, except: [:show]
-  #belongs_to :user
 
   def index
     @rooms = current_user.rooms.all

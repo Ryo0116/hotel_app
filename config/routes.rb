@@ -40,5 +40,9 @@ Rails.application.routes.draw do
   post 'rreservations/back' # 確認画面から「入力画面に戻る」をクリックしたとき
   post 'reservations/complete' # 完了画面
   end
+
+  resource :rooms do
+    resource :reservations
+  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
