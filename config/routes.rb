@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'rooms/description'
   get 'rooms/location'
   get 'rooms/update'
+  get "search" => "searches#search"
 
 
   devise_for :users, controllers: {   registrations: 'users/registrations',sessions: 'users/sessions' }
@@ -20,6 +21,9 @@ Rails.application.routes.draw do
   get 'users/profile' => 'users#profile'
   get '/reservations' => 'reservations#index'
   post 'reservations/confirm' # 確認画面
+  post 'reservation/back' # 確認画面から「入力画面に戻る」をクリックしたとき
+  post 'reservations/complete' # 完了画面
+
 
 
   resource :rooms
@@ -31,13 +35,16 @@ Rails.application.routes.draw do
       get 'rooms/posts' => 'rooms#index'
       get 'description'
       post 'reservations/confirm' # 確認画面
+      post 'reservation/back' # 確認画面から「入力画面に戻る」をクリックしたとき
+      post 'reservations/complete' # 完了画面
+    
     end
 
   resources :reservations
 
   get '/reservations' => 'reservations#index'
   post 'reservations/confirm' # 確認画面
-  post 'rreservations/back' # 確認画面から「入力画面に戻る」をクリックしたとき
+  post 'reservation/back' # 確認画面から「入力画面に戻る」をクリックしたとき
   post 'reservations/complete' # 完了画面
   end
 

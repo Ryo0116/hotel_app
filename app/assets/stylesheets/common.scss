@@ -180,6 +180,13 @@ body {
   float: right;
 }
 
+.host-icon {
+  width: 55px;
+  height: 55px;
+  object-fit: cover;
+  border-radius: 50px;
+}
+
 .header-nav-menu {
   background-color: #fff;
   border: 3px solid #f6f8f9;

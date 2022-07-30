@@ -1,8 +1,8 @@
-<div class="card">
-  <div class="card-content">
-    <div class="content">
-      <%= form_with model:[@room, @reservation] do |f| %>
-        <div class="field is-horizontal">
+<%= form_with model:@reservation , url: reservations_confirm_path do |f| %>
+  <div class="card">
+    <div class="card-content">
+      <div class="content">
+          <div class="field is-horizontal">
             <div class="field-body">
                 <div class="field">
                 <p class="control is-expanded has-icons-left">
@@ -19,15 +19,19 @@
                     <%= f.number_field :number_of_people, placeholder: "宿泊人数", class: "input is-primary is-rounded" %>
                 </p>
                 </div>
+                <%= f.hidden_field :room_id, value: @room.id %>
+                <%= f.hidden_field :user_id, value: current_user.id %>
                 <%= f.submit "予約内容確認へ", class: "button is-danger is-fullwidth m-t-10 m-b-10"  %>
-                <% end %>
+                <i> ＊予約ボタンが反応しない時はリロードしてください。</i>
             </div>
         </div>
       </div>
+    </div>
   </div>
-</div>
+<% end %>
 
 <script>
+  $(document).on('turbolinks:load', function() {
   function checkDate(date) {
     dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
     return [$.inArray(dmy, unavailableDates) == -1];
@@ -42,77 +46,9 @@
               unavailableDates.push($.datepicker.formatDate('d-m-yy', d));
             }
         });
-        $('#reservation_start_date').datepicker({
-          dateFormat: 'dd-mm-yy',
-          //今日から３ヶ月先まで予約可能
-          minDate: 0,
-          maxDate: '3m',
-          beforeShowDay: checkDate,
-          onSelect: function(selected) {
-            $('#reservation_end_date').datepicker("option", "minDate", selected);
-            $('#reservation_end_date').attr("disabled", false);
-            var start_date = $('#reservation_start_date').datepicker('getDate');
-            var end_date = $('#reservation_end_date').datepicker('getDate');
-            //２日選択すると１泊になる
-            var nights = (end_date - start_date)/1000/60/60/24;
-            var input = {
-              'start_date': start_date,
-              'end_date': end_date
-            }
-            $.ajax({
-              data: input,
-              success: function(data) {
-                if(data.conflict) {
-                  $('#message').text("この日付はご利用できません。");
-                  $('#preview').hide();
-                  $('#btn_book').attr('disabled', true);
-                } else {
-                  $('#message').text("");
-                  $('#preview').show();
-                  $('#btn_book').attr('disabled', false);
-                  var total = nights * <%= @room.single_rate %>
-                  $('#reservation_nights').text(nights);
-                  $('#reservation_total').text(total);
-                }
-              }
-            });
-          }
-        });
-        $('#reservation_end_date').datepicker({
-          dateFormat: 'dd-mm-yy',
-          //今日から３ヶ月先まで予約可能
-          minDate: 0,
-          maxDate: '3m',
-          beforeShowDay: checkDate,
-          onSelect: function(selected) {
-            $('#reservation_start_date').datepicker("option", "maxDate", selected);
-            var start_date = $('#reservation_start_date').datepicker('getDate');
-            var end_date = $('#reservation_end_date').datepicker('getDate');
-            var nights = (end_date - start_date)/1000/60/60/24;
-            var input = {
-              'start_date': start_date,
-              'end_date': end_date
-            }
-            $.ajax({
-              data: input,
-              success: function(data) {
-                if(data.conflict) {
-                  $('#message').text("この日付ではご予約できません。");
-                  $('#preview').hide();
-                  $('#btn_book').attr('disabled', true);
-                } else {
-                  $('#message').text("");
-                  $('#preview').show();
-                  $('#btn_book').attr('disabled', false);
-                  var total = nights * <%= @room.single_rate %>
-                  $('#reservation_nights').text(nights);
-                  $('#reservation_total').text(total);
-                }
-              }
-            });
-          }
         });
       }
     });
+  });
   });
 </script>

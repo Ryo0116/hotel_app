@@ -6,8 +6,11 @@ class ReservationsController < ApplicationController
 
 
     def index
-      @reservations = current_user.reservations.all
-      @reservations = @rooms
+      @reservations = Reservation.all
+      #binding.pry
+      @rooms = Room.all
+      #@reservations = @rooms
+      #binding.pry
     end
 
     def new
@@ -20,13 +23,14 @@ class ReservationsController < ApplicationController
     def back
       @reservation = Reservation.new(session[:reservation])
       session.delete(:reservation)
-      render :new
+      render partial:"form"
     end
 
     def confirm
       @room = Room.find(params[:room_id])
       @reservation = Reservation.new(@attr)
       session[:reservation] = @reservation
+      session[:room] = @room
       if @reservation.invalid?
         render 'reservations/confirm'
       end
@@ -44,7 +48,9 @@ class ReservationsController < ApplicationController
         @end_date = Date.parse(reservation_params[:end_date])
         @days = (end_date - start_date).to_i + 1
         @reservation = current_user.reservations.build(reservation_params)
+        @reservation.user_id = current_user.id
         @reservation.room = @room
+        @reservation.room_id = @room_id
         #@reservation.single_rate = room.single_rate
         #@reservation.total = room.single_rate * days * number_of_people
         @reservation.save
@@ -60,5 +66,9 @@ class ReservationsController < ApplicationController
 
       def permit_params
         @attr = params.permit(:start_date, :end_date, :number_of_people, :room_id, :room_name, :user_id, :room_image_name)
+      end
+
+      def room_params
+        params.require(:room).permit(:id, :image_name, :name)
       end
     end

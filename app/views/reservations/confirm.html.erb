@@ -15,17 +15,18 @@
         <td><%= @room.name %></td>
         <td><%= @reservation.start_date %></td>
         <td><%= @reservation.end_date %></td>
-        <td>日</td>
+        <td><%= @reservation.stay %>泊<%= @reservation.days %>日</td>
         <td><%= @reservation.number_of_people %>人</td>
-        <td>￥</td>
+        <td>￥<%= @reservation.total %></td>
       </tr>
     </tbody>
 </table>
 
-<%= form_with model:@reservation, method: :post, url: reservation_back_path do |form| %>
-	<%= form.submit '入力画面に戻る' %>
+
+<%= link_to :back do %>
+  <button>入力画面に戻る</button>
 <% end %>
 
-<%= form_with model:@reservation, method: :post, url: reservation_complete_path do |form| %>
+<%= form_with model:@reservation, method: :post, url: reservations_complete_path do |form| %>
 	<%= form.submit '予約確定' %>
 <% end %>

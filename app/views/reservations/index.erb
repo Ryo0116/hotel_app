@@ -17,10 +17,11 @@
       <% @reservations.each do |reservation| %>
         <tr>
           <td><%= image_tag (reservation.room.image_name.url) %></td>
-          <td><%= reservation.room.id %></td>
-          <td>¥</td>
+          <td><%= reservation.room.name %></td>
+          <td>¥<%= reservation.total %></td>
           <td><%= reservation.start_date %></td>
           <td><%= reservation.end_date %></td>
+          <td><%= reservation.created_at.to_s(:datetime_jp) %></td>
         </tr>
       <% end %>
     </tbody>

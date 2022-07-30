@@ -63,15 +63,6 @@ class RoomsController < ApplicationController
     render json: output
   end
 
-
-    def is_authorised
-      redirect_to root_path, alert: "権限がありません。" unless current_user.id == @room.user_id
-    end
-    def is_ready_room
-      !@room.active && !@room.price.blank? && !@room.listing_name.blank? && !@room.photos.blank? && !@room.address.blank?
-    end
-
-
   # 予約　プライベートメソッド
     def is_conflict(start_date, end_date, room)
       check = room.reservations.where("? < start_date AND end_date < ?", start_date, end_date)

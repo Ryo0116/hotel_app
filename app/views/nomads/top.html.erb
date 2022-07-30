@@ -5,11 +5,13 @@
                 <div class="form-fream">
                     <div class="form-area">
                         <p class="form-area-title mb-4">Nomad Shareで日本を満喫しよう</p>
-                        <form action="https://presite-potepancamp-rails-02.herokuapp.com/rooms/search" accept-charset="UTF-8" method="get">
-                            <label for="___">エリア</label>
-                            <input type="text" name="area" id="area" value="" class="form-control mb-4" placeholder="東京" />
-                            <input type="submit" name="commit" value="探す" class="form-control btn-primary mb-4" data-disable-with="探す" />
-</form>                    </div>
+                        <%= form_with url: search_path, local: true, method: :get do |f| %>
+                        <label for="___">エリア</label>
+                        <!-- エリア検索　-->
+                          <%= f.text_field :area, class: "form-control mb-4", placeholder: "東京" %>
+                          <%= f.submit "探す", class: "form-control btn-primary mb-4" %>
+                        <% end %>
+                    </div>
                 </div>
             </div>
         </div>
@@ -20,22 +22,22 @@
             <div class="row">
                 <div class="panel-item col-lg-3 col-6">
                     <span>東京</span>
-                    <a href="https://presite-potepancamp-rails-02.herokuapp.com/rooms/search?area=%E6%9D%B1%E4%BA%AC"><img class="panel-image" src="/assets/tokyo.jpeg" /></a>
+                    <a href="http://127.0.0.1:3000/search?area=%E6%9D%B1%E4%BA%AC&keyword=&commit="><img class="panel-image" src="/assets/tokyo.jpeg" /></a>
                     <div class="shadow"></div>
                 </div>
                 <div class="panel-item col-lg-3 col-6">
                     <span>埼玉</span>
-                    <a href="https://presite-potepancamp-rails-02.herokuapp.com/rooms/search?area=%E5%A4%A7%E9%98%AA"><img class="panel-image" src="/assets/saitama.jpeg" /></a>
+                    <a href="http://127.0.0.1:3000/search?area=%E5%9F%BC%E7%8E%89&keyword=&commit="><img class="panel-image" src="/assets/saitama.jpeg" /></a>
                     <div class="shadow"></div>
                 </div>
                 <div class="panel-item col-lg-3 col-6">
                     <span>沖縄</span>
-                    <a href="https://presite-potepancamp-rails-02.herokuapp.com/rooms/search?area=%E4%BA%AC%E9%83%BD"><img class="panel-image shadow" src="/assets/okinawa.jpeg" /></a>
+                    <a href="http://127.0.0.1:3000/search?area=%E6%B2%96%E7%B8%84&keyword=&commit="><img class="panel-image shadow" src="/assets/okinawa.jpeg" /></a>
                     <div class="shadow"></div>
                 </div>
                 <div class="panel-item col-lg-3 col-6">
                     <span>新潟</span>
-                    <a href="https://presite-potepancamp-rails-02.herokuapp.com/rooms/search?area=%E6%9C%AD%E5%B9%8C"><img class="panel-image" src="/assets/niigata.jpeg" /></a>
+                    <a href="http://127.0.0.1:3000/search?area=%E6%96%B0%E6%BD%9F&keyword=&commit="><img class="panel-image" src="/assets/niigata.jpeg" /></a>
                     <div class="shadow"></div>
                 </div>
             </div>
