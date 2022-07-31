@@ -1,0 +1,30 @@
+<!-- ログイン画面 -->
+<div class="container device">
+  <div class="device_frame">
+    <p class="my-4">ログイン</p>
+    <div class="device_inner">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+      <!-- メールアドレス入力 -->
+      <div class="field form-row">
+        <div class="col-2 required-b pt-2"></div>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control col-10 px-2", placeholder: "メールアドレス" %>
+      </div>
+
+      <!-- パスワード入力 -->
+      <div class="field form-row">
+        <div class="col-2 required-b pt-2"></div>
+        <%= f.password_field :password, autocomplete: "current-password", class: "form-control col-10 px-2", placeholder: "パスワード" %>
+      </div>
+
+      <!-- ログインボタン -->
+      <div class="actions">
+        <%= f.submit "ログイン", class:"link form-control btn-primary my-4"%>
+      </div>
+      <% end %>
+
+      <%= render "users/shared/links" %>
+    </div>
+  </div>
+</div>
+

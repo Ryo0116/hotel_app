@@ -1,0 +1,46 @@
+    <div class="top">
+    <div class="top-main">
+        <div class="container">
+        <div class="row col-lg-6">
+                <div class="form-fream">
+                    <div class="form-area">
+                        <p class="form-area-title mb-4">Nomad Shareで日本を満喫しよう</p>
+                        <%= form_with url: search_path, local: true, method: :get do |f| %>
+                        <label for="___">エリア</label>
+                        <!-- エリア検索　-->
+                          <%= f.text_field :area, class: "form-control mb-4", placeholder: "東京" %>
+                          <%= f.submit "探す", class: "form-control btn-primary mb-4" %>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="panel-area m-5">
+            <h1 class="section-title">おすすめのエリア</h1>
+            <div class="row">
+                <div class="panel-item col-lg-3 col-6">
+                    <span>東京</span>
+                    <a href="http://127.0.0.1:3000/search?area=%E6%9D%B1%E4%BA%AC&keyword=&commit="><img class="panel-image" src="/assets/tokyo.jpeg" /></a>
+                    <div class="shadow"></div>
+                </div>
+                <div class="panel-item col-lg-3 col-6">
+                    <span>埼玉</span>
+                    <a href="http://127.0.0.1:3000/search?area=%E5%9F%BC%E7%8E%89&keyword=&commit="><img class="panel-image" src="/assets/saitama.jpeg" /></a>
+                    <div class="shadow"></div>
+                </div>
+                <div class="panel-item col-lg-3 col-6">
+                    <span>沖縄</span>
+                    <a href="http://127.0.0.1:3000/search?area=%E6%B2%96%E7%B8%84&keyword=&commit="><img class="panel-image shadow" src="/assets/okinawa.jpeg" /></a>
+                    <div class="shadow"></div>
+                </div>
+                <div class="panel-item col-lg-3 col-6">
+                    <span>新潟</span>
+                    <a href="http://127.0.0.1:3000/search?area=%E6%96%B0%E6%BD%9F&keyword=&commit="><img class="panel-image" src="/assets/niigata.jpeg" /></a>
+                    <div class="shadow"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

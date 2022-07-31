@@ -1,16 +1,100 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>HotelApp</title>
+    <title>Nomad Share</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/9d0624b398.js" crossorigin="anonymous"></script>
+    <!-- Bootstrap Javascript(jQuery含む) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <%= render 'users/shared/notification' %>
+    <header class="header">
+      <div class="header-inner">
+        <div class="header-left-nav">
+          <div class="header-log">
+            <%= link_to "Nomad Share",:nomads_top, class:"link" %>
+          </div>
+          <%= form_with url: search_path, local: true, method: :get do |f| %>
+          <!-- エリア検索　-->
+            <div class="header-sharch d-lg-inline-block d-none my-2 mx-3">
+            <%= f.text_field :area, class: "form-control", placeholder: "エリア" %>
+              <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <!-- キーワード検索　-->
+            <div class="header-sharch d-lg-inline-block d-none my-2">
+            <%= f.text_field :keyword, class: "form-control", placeholder: "キーワード" %>
+              <i class="fas fa-search"></i>
+            </div>
+            <input type="submit" name="commit" value="" class="d-none" data-disable-with="" />
+          <% end %>
+        </div>
+        <div class="header-right-nav">
+          <div class="nav-item d-sm-inline-block d-none">
+            <% if user_signed_in? %>
+            <%= current_user.name %>
+            <%  if current_user.image_name.file.nil? %>
+              <img class="host-icon" src="/assets/surf.jpeg">
+            <% else %>
+              <%=image_tag current_user.image_name.url, class: "host-icon"%>
+            <% end %>
+          </div>
+          <div class="nav-item">
+            <div class="navbar mx-3　p-1 host-icon nav-trigger">menu</div>
+            <ul class="header-nav-menu">
+              <li>
+                <%=link_to "ルーム登録", rooms_new_path %>
+              </li>
+              <li>
+                <%=link_to "予約済みルーム一覧", :reservations %>
+              </li>
+              <li>
+                <%=link_to "登録済みルーム一覧", :rooms_posts %>
+              </li>
+              <li>
+                <%= link_to "設定", edit_user_registration_path %>
+              </li>
+              <li>
+                <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+              </li>
+            </ul>
+              <% else %>
+                <div class="btn btn-primary my-2 mx-3">
+                  <%= link_to "ログイン",:users_sign_in, class:"link" %>
+                </div>
+                <div class="btn btn-secondary">
+                  <%= link_to "新規登録",:users_sign_up, class:"link" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="clearfix"></div>
+    <script>
+      $(function() {
+        $('.nav-trigger').click(function() {
+          $('.header-nav-menu').toggle(1500);
+        })
+      });
+    </script>
+    <div class="notifications">
+    </div>
     <%= yield %>
+    <footer class="footer">
+      <p>©︎ 2022 NOMAD.INC.</p>
+    </footer>
   </body>
 </html>

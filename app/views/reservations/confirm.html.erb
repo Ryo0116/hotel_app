@@ -1,0 +1,32 @@
+<h3>予約確認</h3>
+<table>
+    <thead>
+      <tr align="center">
+        <th>予約する部屋</th>
+        <th>開始日</th>
+        <th>終了日</th>
+        <th>日数</th>
+        <th>人数</th>
+        <th>合計料金</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @room.name %></td>
+        <td><%= @reservation.start_date %></td>
+        <td><%= @reservation.end_date %></td>
+        <td><%= @reservation.stay %>泊<%= @reservation.days %>日</td>
+        <td><%= @reservation.number_of_people %>人</td>
+        <td>￥<%= @reservation.total %></td>
+      </tr>
+    </tbody>
+</table>
+
+
+<%= link_to :back do %>
+  <button>入力画面に戻る</button>
+<% end %>
+
+<%= form_with model:@reservation, method: :post, url: reservations_complete_path do |form| %>
+	<%= form.submit '予約確定' %>
+<% end %>

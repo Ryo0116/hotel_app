@@ -1,0 +1,22 @@
+<h2>部屋詳細・予約ページ</h2>
+  <table>
+    <thead>
+      <tr align="center">
+        <th>ルーム画像</th>
+        <th>ルーム名</th>
+        <th>ルーム紹介</th>
+        <th>料金</th>
+        <th>住所</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><%= image_tag @room.image_name.url %></td>
+          <td><%= @room.name %></td>
+          <td><%= @room.introduce %></td>
+          <td>¥<%= @room.single_rate %>/泊</td>
+          <td><%= @room.address %></td>
+        </tr>
+      <%= render 'reservations/form' %>
+    </tbody>
+  </table>

@@ -1,0 +1,29 @@
+<div class="container-fiuld room-posts">
+  <h4 class="pb-4">検索結果一覧</h4>
+  <table>
+    <thead>
+      <tr align="center">
+        <th>部屋番号</th>
+        <th>ルーム画像</th>
+        <th>ルーム名</th>
+        <th>ルーム紹介</th>
+        <th>料金</th>
+        <th>作成日</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @rooms.each do |room| %>
+        <tr>
+          <td><%= room.id %></td>
+          <td><%= image_tag (room.image_name.url) %></td>
+          <td><%= room.name %></td>
+          <td><%= room.introduce %></td>
+          <td><%= room.single_rate %></td>
+          <td><%= room.created_at.to_s(:datetime_jp) %></td>
+          <td><%= link_to "詳細・予約", room_path(room.id) %></td>
+          <td><%= link_to "削除", room, method: :delete, data: { confirm: "本当に削除しますか？" } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
