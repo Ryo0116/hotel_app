@@ -1,0 +1,54 @@
+<%= form_with model:@reservation , url: reservations_confirm_path do |f| %>
+  <div class="card">
+    <div class="card-content">
+      <div class="content">
+          <div class="field is-horizontal">
+            <div class="field-body">
+                <div class="field">
+                <p class="control is-expanded has-icons-left">
+                    <%= f.date_field :start_date, placeholder: "開始日", class: "input is-primary is-rounded" %>
+                </p>
+                </div>
+                <div class="field">
+                <p class="control is-expanded has-icons-left has-icons-right">
+                    <%= f.date_field :end_date, placeholder: "終了日", class: "input is-primary is-rounded" %>
+                </p>
+                </div>
+                <div class="field">
+                <p class="control is-expanded has-icons-left has-icons-right">
+                    <%= f.number_field :number_of_people, placeholder: "宿泊人数", class: "input is-primary is-rounded" %>
+                </p>
+                </div>
+                <%= f.hidden_field :room_id, value: @room.id %>
+                <%= f.hidden_field :user_id, value: current_user.id %>
+                <%= f.submit "予約内容確認へ", class: "button is-danger is-fullwidth m-t-10 m-b-10"  %>
+                <i> ＊予約ボタンが反応しない時はリロードしてください。</i>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script>
+  $(document).on('turbolinks:load', function() {
+  function checkDate(date) {
+    dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+    return [$.inArray(dmy, unavailableDates) == -1];
+  }
+  $(function() {
+    unavailableDates = [];
+    $.ajax({
+      dateTyp: 'json',
+      success: function(data) {
+        $.each(data, function(arrID, arrValue) {
+            for(var d = new Date(arrValue.start_date); d <= new Date(arrValue.end_date); d.setDate(d.getDate() + 1)) {
+              unavailableDates.push($.datepicker.formatDate('d-m-yy', d));
+            }
+        });
+        });
+      }
+    });
+  });
+  });
+</script>
